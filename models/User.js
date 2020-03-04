@@ -5,26 +5,24 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
   name: {
     type: String,
-    required:true
+    required: true
   },
   email: {
     type: String,
-    required:true
+    required: true
   },
   password: {
     type: String,
-    required:true
+    required: true
   },
   avatar: {
     type: String,
-    required:false //by default it's false
+    required: false //by default it's false
   },
   date: {
-    type: date,
+    type: Date,
     default: Date.now
   }
-
-  
 });
 
-module.exports = UserModel = mongoose.model('users', userSchema);
+module.exports = UserModel = mongoose.model("users", userSchema);
