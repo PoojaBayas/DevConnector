@@ -1,6 +1,14 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const users = require("./routes/api/users");
+const profile = require("./routes/api/profile");
+const posts = require("./routes/api/posts");
+const bodyParser = require("body-parser");
 const app = express();
+
+//body parser middleware
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 //congif DB
 const db = require("./config/keys").mongoURI;
@@ -11,8 +19,11 @@ mongoose
   .then(() => console.log("Mongo Db connected"))
   .catch(err => console.log(err));
 
-//lets write our first request
+//lets write our first route
 app.get("/", (req, res) => res.send("Hello "));
+app.use("/api/users", users);
+app.use("/api/profile", profile);
+app.use("/api/posts", posts);
 
-const port = 8020;
+const port = 8030;
 app.listen(port, () => console.log(`server running on the port ${port}`));
