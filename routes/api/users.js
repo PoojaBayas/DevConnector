@@ -5,6 +5,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const key = require("../../config/keys");
 const UserModel = require("../../models/User");
+const passport = require("passport");
 
 //@route  POST api/users/register
 //@desc   Register User
@@ -82,5 +83,20 @@ router.post("/login", (req, res) => {
     })
     .catch(err => console.log(err));
 });
+//@route  Get api/users/current
+//@desc   Return current  User information
+//@acess  priavte
+
+router.get(
+  '/current',
+  passport.authenticate('jwt', {session: false}),
+  (req, res) => {
+    res.json({
+      id: req.user.id,
+      name: req.user.name,
+      email: req.user.email
+    });
+  }
+);
 
 module.exports = router;
