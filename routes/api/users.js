@@ -6,11 +6,19 @@ const jwt = require("jsonwebtoken");
 const key = require("../../config/keys");
 const UserModel = require("../../models/User");
 const passport = require("passport");
+const validateRegisterInput = require('../../validation/register');
+const validateLoginInput = require('../../validation/login');
+
 
 //@route  POST api/users/register
 //@desc   Register User
 //@acess  public
 router.post("/register", (req, res) => {
+  const { errors, isValid } = validateRegisterInput(req.body)
+    if(!isValid){
+    return res.status(400).json(errors);
+  }
+
   UserModel.findOne({ email: req.body.email })
     .then(user => {
       if (user) {
@@ -48,6 +56,10 @@ router.post("/register", (req, res) => {
 //@acess  public
 
 router.post("/login", (req, res) => {
+  const { errors, isValid } = validateLoginInput(req.body)
+    if(!isValid){
+    return res.status(400).json(errors);
+  }
   UserModel.findOne({ email: req.body.email })
     .then(user => {
       if (!user) {
@@ -70,7 +82,7 @@ router.post("/login", (req, res) => {
               (err, token) => {
                 res.json({
                   success: true,
-                  token: "bearer" + token
+                  token: "Bearer " + token
                 });
               }
             );
@@ -88,8 +100,8 @@ router.post("/login", (req, res) => {
 //@acess  priavte
 
 router.get(
-  '/current',
-  passport.authenticate('jwt', {session: false}),
+  "/current",
+  passport.authenticate("jwt", { session: false }),
   (req, res) => {
     res.json({
       id: req.user.id,
