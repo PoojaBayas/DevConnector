@@ -1,16 +1,28 @@
 import React from "react";
+import { Provider } from "react-redux";
 import "./App.css";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import Navbar from "./components/layout/Navbar";
 import Landing from "./components/layout/Landing";
 import Footer from "./components/layout/Footer";
+import Register from "./components/auth/Register";
+import Login from "./components/auth/Login";
+import store from "./store";
+
 
 function App() {
   return (
-    <div className="App">
-      <Navbar />
-      <Landing />
-      <Footer />
-    </div>
+    <Provider store={store}>
+      <Router>
+        <div className="App">
+          <Navbar />
+          <Route exact path="/" component={Landing} />\
+          <Route exact path="/register" component={Register} />
+          <Route exact path="/login" component={Login} />
+          <Footer />
+        </div>
+      </Router>
+    </Provider>
   );
 }
 
