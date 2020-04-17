@@ -44,3 +44,18 @@ export const loginUser = userData => dispatch  => {
     );
 }
 
+//logout user
+export const logoutUser = () => dispatch => {
+  //Remove the token from localStorage
+  localStorage.removeItem('jwtToken');
+
+  //remove the token from authheader
+  setAuthToken(false)
+
+  //Cleanup the redux store
+  dispatch({
+    type: SET_CURRENT_USER,
+    payload: {}
+  })
+
+}
