@@ -4,6 +4,7 @@ import classnames from "classnames";
 import { loginUser } from "../../action/authActions";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import  TextFieldGroup from '../common/TextFieldGroup';
 
 class Login extends Component {
   constructor() {
@@ -30,7 +31,7 @@ class Login extends Component {
   }
 
   componentDidMount(){
-    if (this.props.auth.isAuthenticated) {
+    if (this.props.auth.isAuthenticated===true) {
       this.props.history.push("/dashboard")
     }
   }
@@ -55,34 +56,24 @@ class Login extends Component {
               </p>
               <form onSubmit={this.onSubmit}>
                 <div className="form-group">
-                  <input
-                    type="email"
-                    className={classnames("form-control form-control-lg", {
-                      " is-invalid": errors.email,
-                    })}
+                  <TextFieldGroup
                     placeholder="Email Address"
                     name="email"
+                    type="email"
                     value={this.state.email}
                     onChange={this.onChange}
-                  />
-                  {errors.email && (
-                    <div className="invalid-feedback">{errors.email}</div>
-                  )}
+                    error={errors.email}
+                  />                
                 </div>
                 <div className="form-group">
-                  <input
-                    type="password"
-                    className={classnames("form-control form-control-lg", {
-                      " is-invalid": errors.password,
-                    })}
+                <TextFieldGroup
                     placeholder="Password"
                     name="password"
+                    type="password"
                     value={this.state.password}
                     onChange={this.onChange}
-                  />
-                  {errors.password && (
-                    <div className="invalid-feedback">{errors.password}</div>
-                  )}
+                    error={errors.password}
+                  />     
                 </div>
 
                 <input type="submit" className="btn btn-info btn-block mt-4" />

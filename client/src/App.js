@@ -7,6 +7,7 @@ import Landing from "./components/layout/Landing";
 import Footer from "./components/layout/Footer";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
+import { logoutUser } from './action/authActions';
 
 import { Component } from "react";
 import setAuthToken from "./utils/setAuthToken";
@@ -47,7 +48,7 @@ class App extends Component {
           <div className="App">
             <Navbar />
             <Route exact path="/" component={Landing} />\
-          <Route exact path="/register" component={Register} />
+            <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
             <Footer />
           </div>
