@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 // import axios from "axios";
-import classnames from "classnames";
-import { loginUser } from "../../action/authActions";
+// import classnames from "classnames";
+import { loginUser } from "../../actions/authActions";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import  TextFieldGroup from '../common/TextFieldGroup';
